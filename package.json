@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "server": "nodemon backend/server.js",
-    "test": "jest"
+    "test": "set NODE_ENV=test&& jest"
   },
   "keywords": [],
   "author": "",
@@ -25,11 +25,17 @@
     "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
-    "jest": "^29.7.0",
+    "babel-jest": "^29.7.0",
+    "jest": {
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  }
+},
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.4",
     "supertest": "^7.0.0"

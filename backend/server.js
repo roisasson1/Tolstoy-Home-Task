@@ -1,5 +1,3 @@
-require('dotenv').config(); // Load environment variables from .env
-
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -9,6 +7,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 
@@ -31,15 +30,18 @@ app.use(cors({
 
 // Rate limiting middleware
 const limiter = rateLimit({
-    windowMs: 1000, // 1 second window
+    windowMs: 60 * 1000, // 1 minute window
     max: 5, // Limit each IP to 5 requests per window
-    message: 'Too many requests, please try again later.'
+    message: {
+        message: 'Too many requests, please try again later.',
+        status: 429
+    }
 });
 
-app.use(limiter); // Apply the rate limiter to all requests
+app.use('/fetch-metadata', limiter); // Apply the rate limiter specifically to the /fetch-metadata route
 app.use(bodyParser.json());
 
-// Conditionally apply CSRF protection only in production
+// Conditionally apply CSRF protection only in development
 if (process.env.NODE_ENV === 'development') {
     const csrfProtection = csurf({ cookie: true });
     app.use(csrfProtection);
@@ -49,39 +51,55 @@ if (process.env.NODE_ENV === 'development') {
     });
 }
 
+// Function to fetch metadata from a URL
+const fetchMetadata = async (url) => {
+    try {
+        const { data } = await axios.get(url);
+        const $ = cheerio.load(data);
+
+        const title = $('meta[property="og:title"]').attr('content') || $('title').text();
+        const description = $('meta[property="og:description"]').attr('content') || $('meta[name="description"]').attr('content');
+        const image = $('meta[property="og:image"]').attr('content');
+
+        return {
+            url,
+            title: title || 'No title',
+            description: description || 'No description',
+            image: image || 'No image'
+        };
+    } catch (error) {
+        console.error(`Error fetching metadata for ${url}:`, error); // Log error for debugging
+        return {
+            url,
+            error: 'Could not retrieve metadata'
+        };
+    }
+};
+
 // Endpoint to fetch metadata
 app.post('/fetch-metadata', async (req, res) => {
     const { urls } = req.body;
 
+    // Validate the URL array
     if (!Array.isArray(urls) || urls.length === 0) {
         return res.status(400).json({ error: 'Please provide an array of URLs.' });
     }
 
-    const metadataPromises = urls.map(async (url) => {
-        try {
-            const response = await axios.get(url);
-            const html = response.data;
-            const $ = cheerio.load(html);
-
-            const title = $('title').text() || 'No title available';
-            const description = $('meta[name="description"]').attr('content') || 'No description available';
-            const image = $('meta[property="og:image"]').attr('content') || 'No image available';
-
-            return { url, title, description, image };
-        } catch (error) {
-            return { url, error: 'Could not retrieve metadata' };
-        }
-    });
-
-    try {
-        const metadataResults = await Promise.all(metadataPromises);
-        res.json(metadataResults);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching metadata' });
+    const metadataArray = [];
+    for (const url of urls) {
+        const metadata = await fetchMetadata(url);
+        metadataArray.push(metadata);
     }
+
+    res.json(metadataArray);
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Only start listening if not in test mode
+if (process.env.NODE_ENV !== 'test') {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+module.exports = app; // Export the app for testing
