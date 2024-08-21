@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load environment variables from .env
+
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -37,15 +39,15 @@ const limiter = rateLimit({
 app.use(limiter); // Apply the rate limiter to all requests
 app.use(bodyParser.json());
 
-// Conditionally apply CSRF protection
-/*if (process.env.NODE_ENV !== 'test') {
+// Conditionally apply CSRF protection only in production
+if (process.env.NODE_ENV === 'development') {
     const csrfProtection = csurf({ cookie: true });
     app.use(csrfProtection);
     app.use((req, res, next) => {
         res.cookie('XSRF-TOKEN', req.csrfToken());
         next();
     });
-}*/
+}
 
 // Endpoint to fetch metadata
 app.post('/fetch-metadata', async (req, res) => {
@@ -59,16 +61,11 @@ app.post('/fetch-metadata', async (req, res) => {
         try {
             const response = await axios.get(url);
             const html = response.data;
-            //console.log(html);
             const $ = cheerio.load(html);
-            //console.log($);
 
             const title = $('title').text() || 'No title available';
-            console.log(title);
             const description = $('meta[name="description"]').attr('content') || 'No description available';
-            console.log(description);
             const image = $('meta[property="og:image"]').attr('content') || 'No image available';
-            console.log(image);
 
             return { url, title, description, image };
         } catch (error) {
