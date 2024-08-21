@@ -1,0 +1,64 @@
+.metadata-fetcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center all child elements horizontally */
+    justify-content: center; /* Center all child elements vertically */
+    min-height: 100vh; /* Full viewport height */
+    text-align: center; /* Center text inside the container */
+    width: 100%; /* Ensure the container takes full width */
+    padding: 0 26rem; /* Optional: Add padding if needed */
+    box-sizing: border-box; /* Include padding in width calculation */
+    overflow: auto; /* Ensure content does not overflow */
+}
+  
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center form elements horizontally */
+    margin-bottom: 20px;
+}
+  
+.input {
+    margin: 5px;
+    padding: 8px;
+    width: 300px; /* Adjust width if necessary */
+}
+  
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center buttons horizontally */
+    margin-top: 10px;
+}
+  
+.button {
+    margin: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+  
+.error {
+    color: red;
+    margin-top: 10px;
+}
+  
+.metadata {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center metadata items horizontally */
+    width: 100%;
+}
+  
+.metadata-item {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    width: 300px; /* Adjust width if necessary */
+    text-align: center; /* Center text inside metadata items */
+}
+  
+.metadata-image {
+    width: 100px;
+    height: auto;
+}
+  
