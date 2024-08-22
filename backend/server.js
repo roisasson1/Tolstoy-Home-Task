@@ -33,7 +33,7 @@ const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute window
     max: 5, // Limit each IP to 5 requests per window
     message: {
-        message: 'Too many requests, please try again later.',
+        message: 'Too many requests.',
         status: 429
     }
 });
@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'development') {
     });
 }
 
-// Function to fetch metadata from a URL
+// fetch metadata from a URL
 const fetchMetadata = async (url) => {
     try {
         const { data } = await axios.get(url);
@@ -63,12 +63,11 @@ const fetchMetadata = async (url) => {
 
         return {
             url,
-            title: title || 'No title',
-            description: description || 'No description',
-            image: image || 'No image'
+            title: title || 'No title available',
+            description: description || 'No description available',
+            image: image || 'No image available'
         };
     } catch (error) {
-        console.error(`Error fetching metadata for ${url}:`, error); // Log error for debugging
         return {
             url,
             error: 'Could not retrieve metadata'
@@ -102,4 +101,4 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
-module.exports = app; // Export the app for testing
+module.exports = app;

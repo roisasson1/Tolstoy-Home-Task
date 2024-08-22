@@ -27,7 +27,7 @@ describe('POST /fetch-metadata', () => {
         expect(response.body.error).toBe('Please provide an array of URLs.');
     });
 
-    it('should handle failed requests gracefully', async () => {
+    it('should handle failed requests', async () => {
         const urls = ['https://invalidurl.com'];
 
         const response = await request(app)

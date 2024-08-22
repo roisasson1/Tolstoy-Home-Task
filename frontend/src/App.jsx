@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 
-import MetadataFetcher from './MetadataFetcher';
-import './app.css'; // Ensure this import is present to apply the styles
+import MetadataFetcher from './components/MetadataFetcher';
+import './app.css';
 
 function App() {
     return (
