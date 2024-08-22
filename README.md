@@ -1,19 +1,20 @@
-# Metadata Fetcher Application
+# Metadata Fetcher Application - Roi Sasson
 
 ## Installation and Running
 
 ### Prerequisites
 - Node.js and npm installed on your machine.
 
-### Backend Setup
-1. Navigate to the backend directory.
-2. Run `npm install` to install dependencies.
-3. Start the backend server with `npm run server`.
+### Setup
+Run `npm run build` to install dependencies.
 
-### Frontend Setup
-1. Navigate to the frontend directory.
-2. Run `npm install` to install dependencies.
-3. Start the frontend development server with `npm run dev`.
+### Run
+**Start the backend server and the frontend with `npm start`.**
+
+or seperately:
+
+Backend - `npm run server`
+Frontend - `npm frontend`
 
 ### Running Tests
-Run `npm test` in the backend directory to execute the test suite.
+Run `npm test` in the root directory to execute the test suite.
