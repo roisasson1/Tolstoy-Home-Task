@@ -6,8 +6,13 @@
 - Node.js and npm installed on your machine.
 
 ### Setup
-1. Run `npm run build` to install dependencies.
-3. Start the backend server and the frontend with `npm start`.
+Run `npm run build` to install dependencies.
+
+### Run
+Start the backend server and the frontend with `npm start`.
+* or seperately:
+Backend - `npm run server`
+Frontend - `npm frontend`
 
 ### Running Tests
 Run `npm test` in the root directory to execute the test suite.
