@@ -9,8 +9,10 @@
 Run `npm run build` to install dependencies.
 
 ### Run
-Start the backend server and the frontend with `npm start`.
-* or seperately:
+**Start the backend server and the frontend with `npm start`.**
+
+or seperately:
+
 Backend - `npm run server`
 Frontend - `npm frontend`
 
