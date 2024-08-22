@@ -5,15 +5,9 @@
 ### Prerequisites
 - Node.js and npm installed on your machine.
 
-### Backend Setup
-1. Navigate to the backend directory.
-2. Run `npm install` to install dependencies.
-3. Start the backend server with `npm run server`.
-
-### Frontend Setup
-1. Navigate to the frontend directory.
-2. Run `npm install` to install dependencies.
-3. Start the frontend development server with `npm run dev`.
+### Setup
+1. Run `npm run build` to install dependencies.
+3. Start the backend server and the frontend with `npm start`.
 
 ### Running Tests
-Run `npm test` in the backend directory to execute the test suite.
+Run `npm test` in the root directory to execute the test suite.
