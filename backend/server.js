@@ -30,6 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 // Add cookie parser middleware before csrf
 app.use(cookieParser());
 
+console.log(process.env.NODE_ENV);
+
 // CORS configuration
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
