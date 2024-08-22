@@ -2,7 +2,9 @@
 
 ## Overview
 
-This application is a full-stack project designed to fetch metadata (title, description, image) from user-inputted URLs. The project is divided into two main parts: the backend, which handles the server-side logic, and the frontend, which provides the user interface.
+This application is a full-stack project designed to fetch metadata (title, description, image) from user-inputted URLs.
+The project is divided into two main parts: the backend - which handles the server-side logic, 
+and the frontend - which provides the user interface.
 This project demonstrates a full-stack approach to building an application that interacts with external APIs, handles server-side logic securely, and provides a responsive and user-friendly frontend interface. The inclusion of robust testing ensures reliability and maintainability of the codebase.
 
 ## Backend
@@ -52,9 +54,6 @@ This project demonstrates a full-stack approach to building an application that 
   - Less than three URLs are provided.
   - URLs are invalid.
   - Metadata fetching fails.
-
-### Testing
-- **react-test-renderer**: Used for testing the rendering and logic of the `MetadataFetcher` component without relying on `@testing-library/react`.
 
 ### CSS
 - **Flexbox**: Used for layout and centering elements within containers.
