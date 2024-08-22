@@ -1,4 +1,4 @@
-# Metadata Fetcher Application
+# Metadata Fetcher Application - Roi Sasson
 
 ## Installation and Running
 
