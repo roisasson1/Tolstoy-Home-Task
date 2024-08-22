@@ -7,12 +7,21 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 
 // Middleware to secure the app with HTTP headers
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            imgSrc: ["'self'", "data:", "*"]
+        }
+    }
+}));
+
 
 // Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
@@ -23,7 +32,9 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: 'http://localhost:5173', // Adjust to match your frontend URL
+    origin: process.env.NODE_ENV === 'production' 
+        ? 'https://tolstoy-home-task.onrender.com' 
+        : 'http://localhost:5173',
     methods: ['GET', 'POST'],
     credentials: true
 }));
@@ -92,6 +103,15 @@ app.post('/fetch-metadata', async (req, res) => {
 
     res.json(metadataArray);
 });
+
+// Serve static files from the React frontend app
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+    });
+}
 
 // Only start listening if not in test mode
 if (process.env.NODE_ENV !== 'test') {

@@ -6,7 +6,7 @@
   "scripts": {
     "server": "nodemon backend/server.js",
     "test": "set NODE_ENV=test&& jest",
-    "start": "concurrently \"npm run server\" \"npm run frontend\"",
+    "start": "node backend/server.js",
     "frontend": "npm run dev --prefix frontend",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
