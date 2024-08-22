@@ -1,11 +1,14 @@
 {
   "name": "tolstoy-home-task",
   "version": "1.0.0",
-  "description": "",
+  "description": "- Node.js and npm installed on your machine.",
   "main": "server.js",
   "scripts": {
     "server": "nodemon backend/server.js",
-    "test": "set NODE_ENV=test&& jest"
+    "test": "set NODE_ENV=test&& jest",
+    "start": "concurrently \"npm run server\" \"npm run frontend\"",
+    "frontend": "npm run dev --prefix frontend",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
@@ -31,13 +34,18 @@
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "babel-jest": "^29.7.0",
-    "jest": {
-  "transform": {
-    "^.+\\.jsx?$": "babel-jest"
-  }
-},
+    "concurrently": "^8.2.2",
+    "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.4",
     "supertest": "^7.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roisasson1/Tolstoy-Home-Task.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roisasson1/Tolstoy-Home-Task/issues"
+  },
+  "homepage": "https://github.com/roisasson1/Tolstoy-Home-Task#readme"
 }

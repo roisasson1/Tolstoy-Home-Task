@@ -51,6 +51,6 @@ describe('POST /fetch-metadata', () => {
             .send({ urls: ['https://example.com'] });
 
         expect(response.status).toBe(429);
-        expect(response.body).toHaveProperty('message', 'Too many requests, please try again later.');
+        expect(response.body).toHaveProperty('message', 'Too many requests.');
     });
 });
