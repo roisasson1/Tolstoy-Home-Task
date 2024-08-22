@@ -52,7 +52,7 @@ const MetadataFetcher = () => {
 
             // Make a POST request to the backend to fetch metadata
             const response = await axios.post(
-                'http://localhost:5000/fetch-metadata', 
+                'https://tolstoy-home-task.onrender.com/fetch-metadata', 
                 { urls },
                 {
                     headers: {
