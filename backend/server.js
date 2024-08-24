@@ -7,21 +7,12 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
-const path = require('path');
 require('dotenv').config();
 
 const app = express();
 
 // Middleware to secure the app with HTTP headers
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            imgSrc: ["'self'", "data:", "*"]
-        }
-    }
-}));
-
+app.use(helmet());
 
 // Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
@@ -30,13 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 // Add cookie parser middleware before csrf
 app.use(cookieParser());
 
-console.log(process.env.NODE_ENV);
-
 // CORS configuration
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? 'https://tolstoy-home-task.onrender.com' 
-        : 'http://localhost:5173',
+    origin: 'https://tolstoy-home-task.onrender.com',
     methods: ['GET', 'POST'],
     credentials: true
 }));
@@ -105,15 +92,6 @@ app.post('/fetch-metadata', async (req, res) => {
 
     res.json(metadataArray);
 });
-
-// Serve static files from the React frontend app
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
-    });
-}
 
 // Only start listening if not in test mode
 if (process.env.NODE_ENV !== 'test') {
