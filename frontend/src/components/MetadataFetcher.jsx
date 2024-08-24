@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import '../css/MetadataFetcher.css';
+const env = import.meta.env.NODE_ENV;
 
 const MetadataFetcher = () => {
     const [urls, setUrls] = useState(['', '', '']);
@@ -48,20 +49,23 @@ const MetadataFetcher = () => {
     
         try {
             // Extract CSRF token from cookies
-            const csrfToken = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN')).split('=')[1];
+            const headers = {};
+            if (env !== 'production') {
+                const csrfToken = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN')).split('=')[1];
+                headers['X-XSRF-TOKEN'] = csrfToken;
+            }
 
             // Make a POST request to the backend to fetch metadata
             const response = await axios.post(
                 'https://tolstoy-home-task.onrender.com/fetch-metadata', 
                 { urls },
                 {
-                    headers: {
-                        'X-XSRF-TOKEN': csrfToken
-                    },
+                    headers,
                     withCredentials: true
                 }
             );
             setMetadata(response.data);
+            console.log(response.data);
     
             // Handle errors in the response metadata
             response.data.forEach(item => {
