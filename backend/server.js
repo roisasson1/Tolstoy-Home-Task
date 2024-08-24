@@ -25,7 +25,10 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: 'https://tolstoy-home-task.onrender.com',
+    origin: [
+        'https://tolstoy-home-task.onrender.com', 
+        'https://tolstoy-home-task-1.onrender.com'
+    ],
     methods: ['GET', 'POST'],
     credentials: true
 }));
