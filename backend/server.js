@@ -11,6 +11,8 @@ require('dotenv').config();
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Middleware to secure the app with HTTP headers
 app.use(helmet());
 
