@@ -44,7 +44,7 @@ app.use('/fetch-metadata', limiter); // Apply the rate limiter specifically to t
 app.use(bodyParser.json());
 
 // Conditionally apply CSRF protection only in development
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
     const csrfProtection = csurf({ cookie: true });
     app.use(csrfProtection);
     app.use((req, res, next) => {
