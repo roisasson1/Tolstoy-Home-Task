@@ -13,7 +13,7 @@
 ### Run
 **Start the backend server and the frontend with `npm start`.**
 
-it will run locally in: http://localhost:5000/
+it will run locally in: http://localhost:5173/
 
 or seperately:
 
