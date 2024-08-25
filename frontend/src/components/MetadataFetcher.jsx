@@ -48,6 +48,10 @@ const MetadataFetcher = () => {
         }
     
         try {
+            const backendUrl = env === 'production' 
+            ? 'https://tolstoy-home-task.onrender.com/fetch-metadata'
+            : 'http://localhost:5000/fetch-metadata';
+
             // Extract CSRF token from cookies
             const headers = {};
             if (env !== 'production') {
@@ -57,7 +61,7 @@ const MetadataFetcher = () => {
 
             // Make a POST request to the backend to fetch metadata
             const response = await axios.post(
-                'https://tolstoy-home-task.onrender.com/fetch-metadata', 
+                backendUrl,
                 { urls },
                 {
                     headers,

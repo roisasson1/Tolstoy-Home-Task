@@ -1,5 +1,7 @@
 # Metadata Fetcher Application - Roi Sasson
 
+**Demo link -> https://tolstoy-home-task-1.onrender.com/**
+
 ## Installation and Running
 
 ### Prerequisites
@@ -11,7 +13,7 @@
 ### Run
 **Start the backend server and the frontend with `npm start`.**
 
-it will run locally in: http://localhost:5000/
+it will run locally in: http://localhost:5173/
 
 or seperately:
 
